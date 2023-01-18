@@ -28,10 +28,22 @@ docker-compose up -d
 yarn start:dev
 ```
 
-7. Ejecutar SEED para llenar de información la BD ejecutando el siguiente enlace:
+7. Documentación API en Swagger UI
+
+```
+http://localhost:3000/api
+```
+
+8. Ejecutar SEED para llenar de información la BD ejecutando el siguiente enlace:
 
 ```
 http://localhost:3000/api/seed
+```
+
+## Documentación API en Postman
+
+```
+https://documenter.getpostman.com/view/12033673/2s8ZDVZP72
 ```
 
 ## Stack Usado

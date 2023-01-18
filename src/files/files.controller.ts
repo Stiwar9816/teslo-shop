@@ -1,11 +1,34 @@
-import { Controller, Post, UploadedFile, UseInterceptors, BadRequestException, Get, Param, Res } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  UploadedFile,
+  UseInterceptors,
+  BadRequestException,
+  Get,
+  Param,
+  Res
+} from '@nestjs/common';
 import { FilesService } from './files.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { fileFilter, fileNamer } from './helpers';
 import { Response } from 'express';
 import { ConfigService } from '@nestjs/config';
+import {
+  ApiBadRequestResponse,
+  ApiCreatedResponse,
+  ApiForbiddenResponse,
+  ApiInternalServerErrorResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiTags,
+  ApiUnauthorizedResponse
+} from '@nestjs/swagger'
+import { Auth } from '../auth/decorators';
+import { validRoles } from '../auth/interfaces';
 
+//Doc API - ApiTags
+@ApiTags('Files - Get and Uploads')
 @Controller('files')
 export class FilesController {
   constructor(
@@ -14,6 +37,11 @@ export class FilesController {
   ) { }
 
   @Get('product/:imageName')
+  // Doc API - ApiResponse
+  @ApiOkResponse({ description: 'Image obtained successfully' })
+  @ApiBadRequestResponse({ description: 'Bad request' })
+  @ApiNotFoundResponse({ description: 'Not found' })
+  @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
   findProductImage(
     @Res() res: Response,
     @Param('imageName') imageName: string
@@ -24,6 +52,14 @@ export class FilesController {
   }
 
   @Post('product')
+  @Auth(validRoles.admin)
+  // Doc API - ApiResponse
+  @ApiCreatedResponse({ description: 'Image uploaded successfully' })
+  @ApiBadRequestResponse({ description: 'Bad request' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorize' })
+  @ApiForbiddenResponse({ description: 'Forbidden. Token related.' })
+  @ApiNotFoundResponse({ description: 'Not found' })
+  @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
   @UseInterceptors(FileInterceptor('file', {
     fileFilter: fileFilter,
     // limits: { fileSize: 10000000 },
