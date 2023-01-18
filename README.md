@@ -22,16 +22,16 @@ yarn install o npm install
 docker-compose up -d
 ```
 
-6. Ejecutar SEED para llenar de información la BD ejecutando el siguiente enlace:
-
-```
-http://localhost:3000/api/seed
-```
-
-7. Levantar el proyecto en modo de desarrollo con el comando:
+6. Levantar el proyecto en modo de desarrollo con el comando:
 
 ```
 yarn start:dev
+```
+
+7. Ejecutar SEED para llenar de información la BD ejecutando el siguiente enlace:
+
+```
+http://localhost:3000/api/seed
 ```
 
 ## Stack Usado

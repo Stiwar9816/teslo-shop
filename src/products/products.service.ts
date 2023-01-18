@@ -3,9 +3,10 @@ import { CreateProductDto, UpdateProductDto } from './dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
 import { NotFoundException } from '@nestjs/common';
-import { PaginationDto } from 'src/common/dto/pagination.dto';
+import { PaginationDto } from '../common/dto/pagination.dto';
 import { validate as isUUID } from 'uuid';
 import { Product, ProductImage } from './entities';
+import { User } from '../auth/entities/user.entity';
 
 @Injectable()
 export class ProductsService {
@@ -22,7 +23,7 @@ export class ProductsService {
     private readonly dataSource: DataSource
   ) { }
 
-  async create(createProductDto: CreateProductDto) {
+  async create(createProductDto: CreateProductDto, user: User) {
 
     try {
 
@@ -30,7 +31,8 @@ export class ProductsService {
 
       const product = this.productRepository.create({
         ...productDetails,
-        images: images.map(image => this.productImageRepository.create({ url: image }))
+        images: images.map(image => this.productImageRepository.create({ url: image })),
+        user: user
       })
 
       await this.productRepository.save(product)
@@ -98,7 +100,7 @@ export class ProductsService {
     }
   }
 
-  async update(id: string, updateProductDto: UpdateProductDto) {
+  async update(id: string, updateProductDto: UpdateProductDto, user: User) {
 
     const { images, ...toUpdate } = updateProductDto
 
@@ -127,6 +129,7 @@ export class ProductsService {
         )
       }
 
+      product.user = user
       await queryRunner.manager.save(product)
       await queryRunner.commitTransaction()
       await queryRunner.release()
@@ -152,7 +155,7 @@ export class ProductsService {
       throw new BadRequestException(error.detail)
     else {
       this.logger.error(error)
-      throw new InternalServerErrorException('Ayuda')
+      throw new InternalServerErrorException('Unexpected error, check server logs')
     }
   }
 
@@ -168,6 +171,6 @@ export class ProductsService {
     } catch (error) {
       this.handleDBException(error)
     }
-    
+
   }
 }
