@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  ParseUUIDPipe,
+  Query
+} from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto, UpdateProductDto } from './dto';
 import { PaginationDto } from '../common/dto/pagination.dto';
@@ -35,6 +45,7 @@ export class ProductsController {
   @ApiForbiddenResponse({ description: 'Forbidden. Token related.' })
   @ApiNotFoundResponse({ description: 'Not found' })
   @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
+  // End - Doc API
   create(@Body() createProductDto: CreateProductDto, @GetUser() user: User) {
     return this.productsService.create(createProductDto, user);
   }
@@ -45,6 +56,7 @@ export class ProductsController {
   @ApiBadRequestResponse({ description: 'Bad request' })
   @ApiNotFoundResponse({ description: 'Not found' })
   @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
+  // End - Doc API
   findAll(@Query() paginationDto: PaginationDto) {
     return this.productsService.findAll(paginationDto);
   }
@@ -55,6 +67,7 @@ export class ProductsController {
   @ApiBadRequestResponse({ description: 'Bad request' })
   @ApiNotFoundResponse({ description: 'Not found' })
   @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
+  // End - Doc API
   findOne(@Param('id') id: string) {
     return this.productsService.findOnePlain(id);
   }
@@ -68,6 +81,7 @@ export class ProductsController {
   @ApiForbiddenResponse({ description: 'Forbidden. Token related.' })
   @ApiNotFoundResponse({ description: 'Not found' })
   @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
+  // End - Doc API
   update(@Param('id', ParseUUIDPipe) id: string, @Body() updateProductDto: UpdateProductDto, @GetUser() user: User) {
     return this.productsService.update(id, updateProductDto, user);
   }
@@ -81,6 +95,7 @@ export class ProductsController {
   @ApiForbiddenResponse({ description: 'Forbidden. Token related.' })
   @ApiNotFoundResponse({ description: 'Not found' })
   @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
+  // End - Doc API
   remove(@Param('id', ParseUUIDPipe) id: string) {
     return this.productsService.remove(id);
   }

@@ -40,6 +40,12 @@ http://localhost:3000/api
 http://localhost:3000/api/seed
 ```
 
+9. Ejecutar la siguiente consulta `SQL` para actualizar las url's de las imagenes y puedan ser visibles mediante el endpoint
+
+```
+update product_images set url='http://localhost:3000/api/produts' || url
+```
+
 ## Documentación API en Postman
 
 ```

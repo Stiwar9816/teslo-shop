@@ -27,6 +27,7 @@ export class AuthController {
   @ApiBadRequestResponse({ description: 'Bad request' })
   @ApiNotFoundResponse({ description: 'Not found' })
   @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
+  // End - Doc API
   createUser(@Body() createUserDto: CreateUserDto) {
     return this.authService.create(createUserDto);
   }
@@ -37,6 +38,7 @@ export class AuthController {
   @ApiNotFoundResponse({ description: 'Not found' })
   @ApiBadRequestResponse({ description: 'Bad request' })
   @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
+  // End - Doc API
   loginUser(@Body() loginUserDto: LoginUserDto) {
     return this.authService.login(loginUserDto);
   }
@@ -50,6 +52,7 @@ export class AuthController {
   @ApiForbiddenResponse({ description: 'Forbidden. Token related.' })
   @ApiNotFoundResponse({ description: 'Not found' })
   @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
+  // End - Doc API
   checkAuthStatus(@GetUser() user: User) {
 
     return this.authService.checkAuthStatus(user)
@@ -65,6 +68,7 @@ export class AuthController {
   @ApiForbiddenResponse({ description: 'Forbidden. Token related.' })
   @ApiNotFoundResponse({ description: 'Not found' })
   @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
+  // End - Doc API
   privateRoute3(@GetUser() user: User) {
     return {
       ok: true,

@@ -42,6 +42,7 @@ export class FilesController {
   @ApiBadRequestResponse({ description: 'Bad request' })
   @ApiNotFoundResponse({ description: 'Not found' })
   @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
+  // End - Doc API
   findProductImage(
     @Res() res: Response,
     @Param('imageName') imageName: string
@@ -60,6 +61,7 @@ export class FilesController {
   @ApiForbiddenResponse({ description: 'Forbidden. Token related.' })
   @ApiNotFoundResponse({ description: 'Not found' })
   @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
+  // End - Doc API
   @UseInterceptors(FileInterceptor('file', {
     fileFilter: fileFilter,
     // limits: { fileSize: 10000000 },

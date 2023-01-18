@@ -20,6 +20,7 @@ export class SeedController {
   @ApiBadRequestResponse({ description: 'Bad request' })
   @ApiNotFoundResponse({ description: 'Not found' })
   @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
+  // End - Doc API
   executeSeed() {
     return this.seedService.runSeed();
   }
