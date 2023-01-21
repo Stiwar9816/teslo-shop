@@ -38,7 +38,6 @@ export class MessageWsGateway implements OnGatewayConnection, OnGatewayDisconnec
 
   @SubscribeMessage('message-form-clients')
   async handleMessageFromClient(client: Socket, payload: NewMessage) {
-    console.log(client.id, payload)
 
     //emite unicamente al cliente que envia el mensaje
     // client.emit('message-from-server',{
